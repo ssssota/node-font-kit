@@ -1,0 +1,41 @@
+{
+  "name": "font-kit",
+  "version": "0.0.1",
+  "description": "Node bindings to font-kit(Rust crate)",
+  "main": "dist/lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ssssota/font-kit"
+  },
+  "author": "\"Sotaro Tommykawa \" <tommysouta@gmail.com>",
+  "license": "(MIT OR Apache-2.0)",
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.21",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "jest": "^26.6.3",
+    "neon-cli": "^0.7.0",
+    "npm-run-all": "^4.1.5",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.3"
+  },
+  "scripts": {
+    "release-build:rust": "neon build --release",
+    "release-build": "run-p release-build:rust build:ts",
+    "build:rust": "neon build",
+    "build:ts": "tsc",
+    "build": "run-p build:*",
+    "lint": "eslint --ext .ts lib/ examples/",
+    "lint-fix": "eslint --ext .ts --fix lib/ examples/",
+    "postinstall": "npm run build",
+    "test": "jest"
+  }
+}
