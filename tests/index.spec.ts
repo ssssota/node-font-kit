@@ -1,5 +1,5 @@
-import { assert } from 'console';
-import { existsSync, realpathSync } from 'fs';
+import { existsSync } from 'fs';
+import { isAbsolute } from 'path';
 import { getPathAll } from '../lib/index';
 
 describe('getPathAll', () => {
@@ -17,7 +17,7 @@ describe('getPathAll', () => {
 
   it('should return absolute path', (done) => {
     getPathAll()
-      .then((list) => list.forEach((path) => expect(path).toBe(realpathSync(path))))
+      .then((list) => list.forEach((path) => expect(isAbsolute(path)).toBe(true)))
       .then(done);
   });
 });
