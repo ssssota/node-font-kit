@@ -1,9 +1,9 @@
-use font_kit::{handle, sources::fs::*};
+use font_kit::{handle, source::SystemSource};
 use neon::prelude::*;
 use std::collections::HashSet;
 
 fn get_path_all(mut cx: FunctionContext) -> JsResult<JsArray> {
-    let handles = FsSource::new().all_fonts().unwrap();
+    let handles = SystemSource::new().all_fonts().unwrap();
     let array = JsArray::new(&mut cx, handles.len() as u32);
 
     let uniqlist: HashSet<&str> = handles
