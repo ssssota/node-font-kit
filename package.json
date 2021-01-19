@@ -9,6 +9,10 @@
   },
   "author": "\"Sotaro Tommykawa \" <tommysouta@gmail.com>",
   "license": "(MIT OR Apache-2.0)",
+  "bugs": {
+    "url": "https://github.com/ssssota/discord-bot/issues"
+  },
+  "homepage": "https://github.com/ssssota/discord-bot#readme",
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.21",
@@ -29,7 +33,8 @@
   },
   "scripts": {
     "release-build:rust": "neon build --release",
-    "release-build": "run-p release-build:rust build:ts",
+    "release-build:ts": "tsc",
+    "release-build": "run-p release-build:*",
     "build:rust": "neon build",
     "build:ts": "tsc",
     "build": "run-p build:*",
