@@ -38,8 +38,8 @@
     "build:rust": "neon build",
     "build:ts": "tsc",
     "build": "run-p build:*",
-    "lint": "eslint --ext .ts lib/ examples/",
-    "lint-fix": "eslint --ext .ts --fix lib/ examples/",
+    "lint": "eslint --ext .ts lib/ tests/",
+    "lint-fix": "eslint --ext .ts --fix lib/ tests/",
     "postinstall": "npm run build",
     "test": "jest"
   }
