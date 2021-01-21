@@ -7,7 +7,6 @@ pub fn get_all() -> HashSet<String> {
         .unwrap()
         .iter()
         .filter_map(|d| d.font_path())
-        .filter_map(|p| p.to_str())
-        .map(|p| p.to_string())
+        .map(|p| p.to_str().unwrap().to_string())
         .collect()
 }
