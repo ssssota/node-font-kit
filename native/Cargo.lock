@@ -212,6 +212,7 @@ checksum = "7bad48618fdb549078c333a7a8528acb57af271d0433bdecd523eb620628364e"
 name = "font-kit"
 version = "0.1.0"
 dependencies = [
+ "core-text",
  "font-kit 0.10.0",
  "neon",
  "neon-build",
