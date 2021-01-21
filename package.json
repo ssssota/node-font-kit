@@ -10,9 +10,9 @@
   "author": "\"Sotaro Tommykawa \" <tommysouta@gmail.com>",
   "license": "(MIT OR Apache-2.0)",
   "bugs": {
-    "url": "https://github.com/ssssota/discord-bot/issues"
+    "url": "https://github.com/ssssota/font-kit/issues"
   },
-  "homepage": "https://github.com/ssssota/discord-bot#readme",
+  "homepage": "https://github.com/ssssota/font-kit#readme",
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.21",

@@ -1,5 +1,5 @@
-use std::collections::HashSet;
 use font_kit::{handle::Handle, source::SystemSource};
+use std::collections::HashSet;
 
 pub fn get_all() -> HashSet<String> {
     SystemSource::new()

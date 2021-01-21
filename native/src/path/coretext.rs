@@ -1,5 +1,5 @@
-use std::collections::HashSet;
 use core_text::font_collection::create_for_all_families;
+use std::collections::HashSet;
 
 pub fn get_all() -> HashSet<String> {
     create_for_all_families()
