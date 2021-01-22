@@ -48,7 +48,7 @@
     "build": "run-p build:*",
     "lint": "eslint --ext .ts lib/ tests/",
     "lint-fix": "eslint --ext .ts --fix lib/ tests/",
-    "postinstall": "npm run build",
+    "postinstall": "npm run release-build",
     "test": "jest"
   },
   "binary": {
