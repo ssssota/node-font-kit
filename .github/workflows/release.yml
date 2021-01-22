@@ -4,7 +4,8 @@ env:
   CARGO_TERM_COLOR: always
 
 on:
-  tag: [ v* ]
+  push:
+    tag: [ v* ]
 
 jobs:
   build:
