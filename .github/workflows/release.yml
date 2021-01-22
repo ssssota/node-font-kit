@@ -5,18 +5,17 @@ env:
 
 on:
   push:
-    tag: [ v* ]
+    branches:
+    - release
 
 jobs:
   build:
-    #if: github.event.base_ref == 'refs/heads/main'
-
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
-        node-version: [12.x, 14.x]
+        node-version: [14.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -31,6 +30,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: echo ${{ github.event.base_ref }}
+    - run: echo ${{ github.ref }}
     - run: npm ci
     - run: npm run upload --if-present
+      env:
+        NODE_PRE_GYP_GITHUB_TOKEN: ${{ secrets.NODE_PRE_GYP_GITHUB_TOKEN }}
