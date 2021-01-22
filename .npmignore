@@ -1,0 +1,15 @@
+.github/
+.vscode/
+lib/
+build/
+tests/
+.eslintrc.js
+jest.config.js
+tsconfig.json
+font-kit-*.tgz
+native/src
+native/target
+native/artifacts.json
+native/build.rs
+native/Cargo.lock
+native/Cargo.toml
