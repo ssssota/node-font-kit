@@ -17,6 +17,7 @@ module.exports = {
     'jest',
   ],
   rules: {
+    'linebreak-style': ['warn', 'unix'],
     'no-console': 'off',
     'import/prefer-default-export': 'off',
     'import/extensions': [
