@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    if: github.event.base_ref == 'refs/heads/main'
+    #if: github.event.base_ref == 'refs/heads/main'
 
     runs-on: ${{ matrix.os }}
 
@@ -31,5 +31,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - run: echo ${{ github.event.base_ref }}
     - run: npm ci
     - run: npm run upload --if-present
