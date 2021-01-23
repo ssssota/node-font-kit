@@ -1,7 +1,7 @@
 const { join } = require('path');
-const { copyFileSync, mkdirSync } = require('fs');
+const { copyFileSync, mkdirSync, existsSync } = require('fs');
 
-mkdirSync('dist');
+if (!existsSync('dist')) mkdirSync('dist');
 copyFileSync(
   join(__dirname, 'native', 'index.node'),
   join(__dirname, 'dist', 'index.node'),

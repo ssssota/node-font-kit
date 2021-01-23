@@ -1,4 +1,4 @@
-const addon = require('../native/index.node');
+const addon = require('./index.node');
 
 export const getPathAll = (): Promise<string[]> => new Promise((resolve, reject) => {
   try {
