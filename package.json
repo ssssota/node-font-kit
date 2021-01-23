@@ -2,7 +2,7 @@
   "name": "node-font-kit",
   "version": "0.0.5",
   "description": "Node bindings to font-kit(Rust crate)",
-  "main": "dist/lib/index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ssssota/font-kit.git"
