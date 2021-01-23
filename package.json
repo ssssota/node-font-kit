@@ -1,7 +1,7 @@
 {
   "name": "node-font-kit",
   "version": "0.0.6",
-  "description": "Node bindings to font-kit(Rust crate)",
+  "description": "Node wrapper for font-kit (Rust crate)",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
@@ -65,5 +65,13 @@
     "package_name": "{node_abi}-{platform}-{arch}.tar.gz",
     "module_path": "./dist",
     "pkg_path": "."
-  }
+  },
+  "keywords": [
+    "font",
+    "list",
+    "neon",
+    "coretext",
+    "directwrite",
+    "fontconfig"
+  ]
 }
