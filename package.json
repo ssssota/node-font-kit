@@ -1,6 +1,6 @@
 {
   "name": "node-font-kit",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Node wrapper for font-kit (Rust crate)",
   "main": "dist/index.js",
   "repository": {
