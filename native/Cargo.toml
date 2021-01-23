@@ -1,6 +1,6 @@
 [package]
-name = "font-kit"
-version = "0.1.0"
+name = "node-font-kit"
+version = "0.0.1"
 authors = ["\"Sotaro Tommykawa \" <tommysouta@gmail.com>"]
 license = "MIT OR Apache-2.0"
 build = "build.rs"

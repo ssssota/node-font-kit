@@ -210,16 +210,6 @@ checksum = "7bad48618fdb549078c333a7a8528acb57af271d0433bdecd523eb620628364e"
 
 [[package]]
 name = "font-kit"
-version = "0.1.0"
-dependencies = [
- "core-text",
- "font-kit 0.10.0",
- "neon",
- "neon-build",
-]
-
-[[package]]
-name = "font-kit"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1f9042cb45150fb2b2a012fc03d0f1d2071f18e90397b9d2a5ec8ade8464bf20"
@@ -358,6 +348,16 @@ checksum = "f054b2f3b77e6d686792521c0fd8dd5b3a5fee17a08e951de908b8bd799ec115"
 dependencies = [
  "cc",
  "regex",
+]
+
+[[package]]
+name = "node-font-kit"
+version = "0.0.1"
+dependencies = [
+ "core-text",
+ "font-kit",
+ "neon",
+ "neon-build",
 ]
 
 [[package]]

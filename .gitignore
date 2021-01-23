@@ -6,4 +6,4 @@ native/artifacts.json
 **/.DS_Store
 dist
 build
-font-kit-*.tgz
+node-font-kit-*.tgz

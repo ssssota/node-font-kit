@@ -5,18 +5,32 @@ env:
 
 on:
   push:
-    branches:
-    - release
+    tags:
+    - 'v*'
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          prerelease: true
 
+  upload:
+    name: Upload binary
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
-        node-version: [14.x]
-
+        node-version: [12.x, 14.x]
     steps:
     - uses: actions/checkout@v2
     - uses: actions/cache@v2
@@ -32,6 +46,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: echo ${{ github.ref }}
     - run: npm ci
-    - run: npm run upload --if-present
-      env:
-        NODE_PRE_GYP_GITHUB_TOKEN: ${{ secrets.NODE_PRE_GYP_GITHUB_TOKEN }}
+    - run: npm run release-pack
+    - uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: build/stage/*/*.tar.gz
+        tag: ${{ github.ref }}
+        file_glob: true
