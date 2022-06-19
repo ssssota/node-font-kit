@@ -8,7 +8,7 @@ This library works like [font-manager](https://github.com/foliojs/font-manager/)
 
 - Get the path of installed fonts
 - Get the font info
-  - Full name (*Depends on platform.*)
+  - Full name (_Depends on platform._)
   - Family name
   - Postscript name
   - Italic(Oblique)?
@@ -32,7 +32,7 @@ npm install node-font-kit
 const { getPathAll, getProps } = require('node-font-kit');
 
 // Get the path of installed fonts
-getPathAll().then(list => {
+getPathAll().then((list) => {
   list.forEach((path, i) => console.log(i, path));
 });
 
@@ -47,7 +47,7 @@ getPathAll().then(list => {
 :
 */
 
-getProps('path/to/font.otf').then(props => {
+getProps('path/to/font.otf').then((props) => {
   props.forEach((prop) => console.log(prop));
 });
 
