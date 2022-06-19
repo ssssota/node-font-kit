@@ -44,18 +44,23 @@
   },
   "scripts": {
     "artifacts": "napi artifacts",
-    "bench": "node -r @swc-node/register benchmark/bench.ts",
     "build": "napi build --platform --release --pipe \"prettier -w\"",
     "build:debug": "napi build --platform --pipe \"prettier -w\"",
-    "format": "run-p format:prettier format:rs",
-    "format:prettier": "prettier . -w",
-    "format:rs": "cargo fmt",
-    "lint": "eslint . -c ./.eslintrc.yml",
+    "fmt": "run-p fmt:*",
+    "fmt:prettier": "prettier . --write",
+    "fmt:rs": "cargo fmt",
+    "format-check": "run-p format-check:*",
+    "format-check:prettier": "prettier . --check",
+    "format-check:rs": "cargo fmt -- --check",
+    "lint": "run-p lint:*",
+    "lint:eslint": "eslint . -c ./.eslintrc.yml",
+    "lint:rs": "cargo clippy",
     "prepublishOnly": "napi prepublish -t npm",
-    "test": "ava",
-    "version": "napi version"
+    "test": "ava"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
     "@napi-rs/cli": "^2.9.0",
     "@swc-node/register": "^1.5.1",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
@@ -72,32 +77,6 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
     "typescript": "^4.7.3"
-  },
-  "lint-staged": {
-    "*.@(js|ts|tsx)": [
-      "eslint -c .eslintrc.yml --fix"
-    ],
-    "*.@(js|ts|tsx|yml|yaml|md|json)": [
-      "prettier --write"
-    ]
-  },
-  "ava": {
-    "require": [
-      "@swc-node/register"
-    ],
-    "extensions": [
-      "ts"
-    ],
-    "environmentVariables": {
-      "TS_NODE_PROJECT": "./tsconfig.json"
-    }
-  },
-  "prettier": {
-    "printWidth": 120,
-    "semi": false,
-    "trailingComma": "all",
-    "singleQuote": true,
-    "arrowParens": "always"
   },
   "packageManager": "yarn@3.2.1"
 }
