@@ -1,5 +1,5 @@
 [package]
-authors = ["LongYinan <lynweklm@gmail.com>"]
+authors = ["ssssota <tommysouta@gmail.com>"]
 edition = "2021"
 name = "node-font-kit"
 version = "0.1.0"
@@ -12,6 +12,7 @@ crate-type = ["cdylib"]
 [dependencies]
 napi = "2"
 napi-derive = "2"
+font-kit = "0.11.0"
 
 [build-dependencies]
 napi-build = "2"
