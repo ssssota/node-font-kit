@@ -16,6 +16,11 @@ export type JsFont = Font
 export class Font {
   static fromPath(path: string, fontIndex: number): JsFont
   static fromBytes(fontData: Buffer, fontIndex: number): JsFont
+  postscriptName(): string | null
+  fullName(): string
+  familyName(): string
+  isMonospace(): boolean
+  properties(): Properties
 }
 export type JsHandle = Handle
 export class Handle {

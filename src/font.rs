@@ -1,5 +1,6 @@
-use font_kit::font::Font;
-use napi::bindgen_prelude::Buffer;
+use crate::{file_type::JsFileType, properties::Properties};
+use font_kit::{font::Font, loader::Loader};
+use napi::bindgen_prelude::Uint8Array;
 use napi_derive::napi;
 use std::sync::Arc;
 
@@ -21,10 +22,67 @@ impl JsFont {
     }
   }
   #[napi(factory)]
-  pub fn from_bytes(font_data: Buffer, font_index: u32) -> Self {
-    let font_data: Arc<Vec<u8>> = Arc::new((*font_data).to_vec());
+  pub fn from_bytes(font_data: Uint8Array, font_index: u32) -> Self {
+    let font_data: Arc<Vec<u8>> = Arc::new((*font_data).into());
     JsFont {
       font: Font::from_bytes(font_data, font_index).unwrap(),
     }
+  }
+
+  #[napi]
+  pub fn analyze_path(path: String) -> JsFileType {
+    JsFileType::from(Font::analyze_path(path).unwrap())
+  }
+  #[napi]
+  pub fn analyze_bytes(font_data: Uint8Array) -> JsFileType {
+    JsFileType::from(Font::analyze_bytes(Arc::new((*font_data).into())).unwrap())
+  }
+
+  #[napi]
+  pub fn postscript_name(&self) -> Option<String> {
+    self.font.postscript_name()
+  }
+
+  #[napi]
+  pub fn full_name(&self) -> String {
+    self.font.full_name()
+  }
+
+  #[napi]
+  pub fn family_name(&self) -> String {
+    self.font.family_name()
+  }
+
+  #[napi]
+  pub fn is_monospace(&self) -> bool {
+    self.font.is_monospace()
+  }
+
+  #[napi]
+  pub fn properties(&self) -> Properties {
+    Properties::from(self.font.properties())
+  }
+
+  #[napi]
+  pub fn glyph_for_char(&self, character: String) -> Option<u32> {
+    self.font.glyph_for_char(character.chars().next().unwrap())
+  }
+
+  #[napi]
+  pub fn glyph_by_name(&self, name: String) -> Option<u32> {
+    self.font.glyph_by_name(&name)
+  }
+
+  #[napi]
+  pub fn glyph_count(&self) -> u32 {
+    self.font.glyph_count()
+  }
+
+  #[napi]
+  pub fn load_font_data(&self, table_tag: u32) -> Option<Uint8Array> {
+    self
+      .font
+      .load_font_table(table_tag)
+      .map(|t| Uint8Array::new((*t).into()))
   }
 }

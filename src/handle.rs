@@ -1,6 +1,6 @@
 use crate::font::JsFont;
 use font_kit::handle::Handle;
-use napi::bindgen_prelude::Buffer;
+use napi::bindgen_prelude::Uint8Array;
 use napi_derive::napi;
 use std::sync::Arc;
 
@@ -22,7 +22,7 @@ impl JsHandle {
     }
   }
   #[napi(factory)]
-  pub fn from_memory(bytes: Buffer, font_index: u32) -> Self {
+  pub fn from_memory(bytes: Uint8Array, font_index: u32) -> Self {
     JsHandle {
       handle: Handle::from_memory(Arc::new((*bytes).into()), font_index),
     }

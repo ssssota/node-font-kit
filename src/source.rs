@@ -1,5 +1,6 @@
 use crate::family_name::str2family_name;
 use crate::handle::JsHandle;
+use crate::properties::Properties;
 use font_kit::family_name::FamilyName;
 use font_kit::source::Source;
 use font_kit::source::SystemSource;
@@ -47,11 +48,7 @@ impl JsSource {
   }
 
   #[napi]
-  pub fn select_best_match(
-    &self,
-    family_names: Vec<String>,
-    properties: crate::properties::Properties,
-  ) -> JsHandle {
+  pub fn select_best_match(&self, family_names: Vec<String>, properties: Properties) -> JsHandle {
     JsHandle::from_raw(
       self
         .source
