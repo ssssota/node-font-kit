@@ -26,64 +26,22 @@ This library works like [font-manager](https://github.com/foliojs/font-manager/)
 npm install node-font-kit
 ```
 
-## Example
+## Support status
 
-```js
-const { getPathAll, getProps } = require('node-font-kit');
+|                       | node14 | node16 | node18 |
+| --------------------- | ------ | ------ | ------ |
+| Windows x64           | ✅     | ✅     | ✅     |
+| Windows x86           | ✅     | ✅     | ✅     |
+| Windows arm64         | ✅     | ✅     | ✅     |
+| macOS x64             | ✅     | ✅     | ✅     |
+| macOS aarch64         | ✅     | ✅     | ✅     |
+| Linux x64 gnu         | ✅     | ✅     | ✅     |
+| Linux x64 musl        | ✅     | ✅     | ✅     |
+| Linux aarch64 gnu     | ❌     | ❌     | ❌     |
+| Linux aarch64 musl    | ❌     | ❌     | ❌     |
+| Linux arm gnueabihf   | ❌     | ❌     | ❌     |
+| Linux aarch64 android | ❌     | ❌     | ❌     |
+| Linux armv7 android   | ❌     | ❌     | ❌     |
+| FreeBSD x64           | ✅     | ✅     | ✅     |
 
-// Get the path of installed fonts
-getPathAll().then((list) => {
-  list.forEach((path, i) => console.log(i, path));
-});
-
-/*
-0 C:\\WINDOWS\\FONTS\\ROBOTO-THIN.TTF
-1 C:\\WINDOWS\\FONTS\\CANDARAB.TTF
-2 C:\\WINDOWS\\FONTS\\COURBI.TTF
-3 C:\\WINDOWS\\FONTS\\UBUNTU-LIGHT.TTF
-4 C:\\WINDOWS\\FONTS\\PALA.TTF
-5 C:\\WINDOWS\\FONTS\\COMIC.TTF
-:
-:
-*/
-
-getProps('path/to/font.otf').then((props) => {
-  props.forEach((prop) => console.log(prop));
-});
-
-/*
-{
-  fullname: 'Mplus 1p',
-  family: 'Mplus 1p',
-  postscriptName: 'Mplus1p-Regular',
-  monospace: false,
-  weight: 400,
-  strech: 1,
-  style: 'Normal'
-}
-*/
-```
-
-## API
-
-### `getPathAll() => Promise<string>`
-
-Returns a list of font paths as a Promise.
-
-### `getProps(path: string) => Promise<FontProperty[]>`
-
-Returns a list of font properties as a Promise.
-
-### `FontProperty`
-
-```typescript
-type FontProperty = {
-  fullname: string;
-  family: string;
-  postscriptName: string;
-  monospace: boolean;
-  weight: number;
-  strech: number;
-  style: 'Normal' | 'Italic' | 'Oblique';
-};
-```
+[Please help to support linux-arm!](https://github.com/ssssota/node-font-kit/issues/3)
