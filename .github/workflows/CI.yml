@@ -201,7 +201,7 @@ jobs:
           usesh: true
           mem: 3000
           prepare: |
-            pkg install -y curl node14 python2 pkg-config fontconfig
+            pkg install -y curl node14 python2 pkgconfig fontconfig
             curl -qL https://www.npmjs.com/install.sh | sh
             npm install -g yarn
             curl https://sh.rustup.rs -sSf --output rustup.sh
