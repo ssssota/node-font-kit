@@ -9,7 +9,7 @@ test('sync function from native code', () => {
   const font = Font.fromBytes(data, 0);
   expect(font.familyName()).toEqual('Roboto');
   expect(font.fullName()).toEqual(
-    process.platform === 'win32' ? 'Roboto Black' : 'Robot',
+    process.platform === 'win32' ? 'Roboto Black' : 'Roboto',
   );
   expect(font.postscriptName()).toEqual('Roboto-Black');
   expect(font.isMonospace()).toBeFalsy();
