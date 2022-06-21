@@ -75,7 +75,7 @@ jobs:
             target: armv7-unknown-linux-gnueabihf
             setup: |
               sudo apt-get update
-              sudo apt-get install fontconfig gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf -y
+              sudo apt-get install libfontconfig-dev gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf -y
             build: |
               yarn build --target=armv7-unknown-linux-gnueabihf
               arm-linux-gnueabihf-strip *.node
@@ -202,7 +202,7 @@ jobs:
           usesh: true
           mem: 3000
           prepare: |
-            pkg install -y curl node14 python2 fontconfig
+            pkg install -y curl node14 python2 pkgconf fontconfig
             curl -qL https://www.npmjs.com/install.sh | sh
             npm install -g yarn
             curl https://sh.rustup.rs -sSf --output rustup.sh
