@@ -1,12 +1,11 @@
 import { readFileSync } from 'fs';
-import { join } from 'path';
 
 import { expect, test } from 'vitest';
 
 import { Font } from '../index';
 
 test('sync function from native code', () => {
-  const data = readFileSync(join(__dirname, 'ROBOTO-BLACK.TTF'));
+  const data = readFileSync('__test__/ROBOTO-BLACK.TTF');
   const font = Font.fromBytes(data, 0);
   expect(font.familyName()).toEqual('Roboto');
   expect(font.fullName()).toEqual(
