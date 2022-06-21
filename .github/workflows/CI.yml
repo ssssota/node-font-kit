@@ -310,7 +310,7 @@ jobs:
         run: ls -R .
         shell: bash
       - name: Test bindings
-        run: docker run --rm -v $(pwd):/build -w /build node:${{ matrix.node }}-slim /bin/bash -c "apt-get -y install libfontconfig-dev && yarn test"
+        run: docker run --rm -v $(pwd):/build -w /build node:${{ matrix.node }}-slim /bin/bash -c "apt-get update && apt-get -y install libfontconfig-dev && yarn test"
   test-linux-x64-musl-binding:
     name: Test bindings on x86_64-unknown-linux-musl - node@${{ matrix.node }}
     needs:
@@ -349,7 +349,7 @@ jobs:
         run: ls -R .
         shell: bash
       - name: Test bindings
-        run: docker run --rm -v $(pwd):/build -w /build node:${{ matrix.node }}-alpine /bin/bash -c "apk add fontconfig-dev && yarn test"
+        run: docker run --rm -v $(pwd):/build -w /build node:${{ matrix.node }}-alpine /bin/sh -c "apk add fontconfig-dev && yarn test"
   # test-linux-aarch64-gnu-binding:
   #   name: Test bindings on aarch64-unknown-linux-gnu - node@${{ matrix.node }}
   #   needs:
