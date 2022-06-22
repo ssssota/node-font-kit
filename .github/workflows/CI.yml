@@ -506,8 +506,7 @@ jobs:
         run: ls -R ./npm
         shell: bash
       - name: Release
-        if: github.event_name != 'push'
-        run: npx semantic-release
+        run: yarn semantic-release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

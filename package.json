@@ -56,7 +56,8 @@
     "lint:eslint": "eslint . -c ./.eslintrc.yml",
     "lint:rs": "cargo clippy",
     "prepublishOnly": "napi prepublish -t npm",
-    "test": "vitest"
+    "test": "vitest",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.2",
