@@ -32,14 +32,20 @@ impl JsFamilyHandle {
   }
 }
 
-impl Into<FamilyHandle> for JsFamilyHandle {
-  fn into(self) -> FamilyHandle {
-    self.family_handle
+impl From<JsFamilyHandle> for FamilyHandle {
+  fn from(js: JsFamilyHandle) -> Self {
+    js.family_handle
   }
 }
 
 impl From<FamilyHandle> for JsFamilyHandle {
   fn from(family_handle: FamilyHandle) -> Self {
     JsFamilyHandle { family_handle }
+  }
+}
+
+impl Default for JsFamilyHandle {
+  fn default() -> Self {
+    JsFamilyHandle::new()
   }
 }

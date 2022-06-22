@@ -57,9 +57,9 @@ impl JsHandle {
   }
 }
 
-impl Into<Handle> for JsHandle {
-  fn into(self) -> Handle {
-    self.handle
+impl From<JsHandle> for Handle {
+  fn from(js: JsHandle) -> Self {
+    js.handle
   }
 }
 

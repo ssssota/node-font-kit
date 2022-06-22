@@ -1,9 +1,9 @@
 use font_kit::properties::{Stretch, Style, Weight};
 use napi_derive::napi;
 
-const NORMAL: &'static str = "normal";
-const ITALIC: &'static str = "italic";
-const OBLIQUE: &'static str = "oblique";
+const NORMAL: &str = "normal";
+const ITALIC: &str = "italic";
+const OBLIQUE: &str = "oblique";
 
 #[napi(object)]
 pub struct Properties {
@@ -13,17 +13,17 @@ pub struct Properties {
   pub stretch: f64,
 }
 
-impl Into<font_kit::properties::Properties> for Properties {
-  fn into(self) -> font_kit::properties::Properties {
+impl From<Properties> for font_kit::properties::Properties {
+  fn from(props: Properties) -> Self {
     font_kit::properties::Properties {
-      style: match &*self.style {
+      style: match &*props.style {
         NORMAL => Style::Normal,
         ITALIC => Style::Italic,
         OBLIQUE => Style::Oblique,
         _ => Style::Normal,
       },
-      weight: Weight(self.weight as f32),
-      stretch: Stretch(self.stretch as f32),
+      weight: Weight(props.weight as f32),
+      stretch: Stretch(props.stretch as f32),
     }
   }
 }

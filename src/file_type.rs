@@ -38,9 +38,9 @@ impl JsFileType {
   }
 }
 
-impl Into<FileType> for JsFileType {
-  fn into(self) -> FileType {
-    self.file_type
+impl From<JsFileType> for FileType {
+  fn from(js: JsFileType) -> Self {
+    js.file_type
   }
 }
 

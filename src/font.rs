@@ -87,9 +87,9 @@ impl JsFont {
   }
 }
 
-impl Into<Font> for JsFont {
-  fn into(self) -> Font {
-    self.font
+impl From<JsFont> for Font {
+  fn from(js: JsFont) -> Self {
+    js.font
   }
 }
 
