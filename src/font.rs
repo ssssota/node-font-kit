@@ -86,3 +86,15 @@ impl JsFont {
       .map(|t| Uint8Array::new((*t).into()))
   }
 }
+
+impl Into<Font> for JsFont {
+  fn into(self) -> Font {
+    self.font
+  }
+}
+
+impl From<Font> for JsFont {
+  fn from(font: Font) -> Self {
+    JsFont { font }
+  }
+}

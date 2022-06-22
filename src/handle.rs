@@ -11,10 +11,6 @@ pub struct JsHandle {
 
 #[napi]
 impl JsHandle {
-  pub fn from_raw(handle: Handle) -> Self {
-    JsHandle { handle }
-  }
-
   #[napi(factory)]
   pub fn from_path(path: String, font_index: u32) -> Self {
     JsHandle {
@@ -58,5 +54,17 @@ impl JsHandle {
         font_index,
       } => *font_index,
     }
+  }
+}
+
+impl Into<Handle> for JsHandle {
+  fn into(self) -> Handle {
+    self.handle
+  }
+}
+
+impl From<Handle> for JsHandle {
+  fn from(handle: Handle) -> Self {
+    JsHandle { handle }
   }
 }

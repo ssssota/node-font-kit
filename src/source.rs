@@ -1,3 +1,4 @@
+use crate::family_handle::JsFamilyHandle;
 use crate::family_name::str2family_name;
 use crate::handle::JsHandle;
 use crate::properties::Properties;
@@ -14,8 +15,8 @@ pub struct JsSource {
 
 #[napi]
 impl JsSource {
-  #[napi(constructor)]
-  pub fn new() -> Self {
+  #[napi(factory)]
+  pub fn system() -> Self {
     JsSource {
       source: Box::new(SystemSource::new()),
     }
@@ -28,7 +29,7 @@ impl JsSource {
       .all_fonts()
       .unwrap()
       .iter()
-      .map(|handle| JsHandle::from_raw(handle.clone()))
+      .map(|handle| JsHandle::from(handle.clone()))
       .collect()
   }
 
@@ -38,8 +39,13 @@ impl JsSource {
   }
 
   #[napi]
+  pub fn select_family_by_name(&self, family_name: String) -> JsFamilyHandle {
+    JsFamilyHandle::from(self.source.select_family_by_name(&family_name).unwrap())
+  }
+
+  #[napi]
   pub fn select_by_postscript_name(&self, postscript_name: String) -> JsHandle {
-    JsHandle::from_raw(
+    JsHandle::from(
       self
         .source
         .select_by_postscript_name(&postscript_name)
@@ -49,7 +55,7 @@ impl JsSource {
 
   #[napi]
   pub fn select_best_match(&self, family_names: Vec<String>, properties: Properties) -> JsHandle {
-    JsHandle::from_raw(
+    JsHandle::from(
       self
         .source
         .select_best_match(

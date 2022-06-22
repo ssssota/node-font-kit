@@ -1,3 +1,4 @@
+use crate::handle::JsHandle;
 use font_kit::family_handle::FamilyHandle;
 use napi_derive::napi;
 
@@ -13,5 +14,32 @@ impl JsFamilyHandle {
     JsFamilyHandle {
       family_handle: FamilyHandle::new(),
     }
+  }
+
+  #[napi]
+  pub fn is_empty(&self) -> bool {
+    self.family_handle.is_empty()
+  }
+
+  #[napi]
+  pub fn fonts(&self) -> Vec<JsHandle> {
+    self
+      .family_handle
+      .fonts()
+      .iter()
+      .map(|handle| JsHandle::from(handle.clone()))
+      .collect()
+  }
+}
+
+impl Into<FamilyHandle> for JsFamilyHandle {
+  fn into(self) -> FamilyHandle {
+    self.family_handle
+  }
+}
+
+impl From<FamilyHandle> for JsFamilyHandle {
+  fn from(family_handle: FamilyHandle) -> Self {
+    JsFamilyHandle { family_handle }
   }
 }
