@@ -8,6 +8,7 @@ use font_kit::source::SystemSource;
 use napi_derive::napi;
 use std::ops::Deref;
 
+/// [Source](https://docs.rs/font-kit/latest/font_kit/source/trait.Source.html) implementation
 #[napi(js_name = "Source")]
 pub struct JsSource {
   source: Box<dyn Source>,
@@ -15,6 +16,13 @@ pub struct JsSource {
 
 #[napi]
 impl JsSource {
+  /// Initialize system default source.
+  ///
+  /// - Linux: fontconfig
+  /// - Windows: direct write
+  /// - Mac: core text
+  ///
+  /// ref. [SystemSource](https://docs.rs/font-kit/latest/font_kit/source/index.html#:~:text=SystemSource)
   #[napi(factory)]
   pub fn system() -> Self {
     JsSource {
@@ -22,6 +30,9 @@ impl JsSource {
     }
   }
 
+  /// Returns paths of all fonts installed on the system.
+  ///
+  /// ref. [all_fonts](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.all_fonts)
   #[napi]
   pub fn all_fonts(&self) -> Vec<JsHandle> {
     self
@@ -33,16 +44,27 @@ impl JsSource {
       .collect()
   }
 
+  /// Returns the names of all families installed on the system.
+  ///
+  /// ref. [all_families](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.all_families)
   #[napi]
   pub fn all_families(&self) -> Vec<String> {
     self.source.all_families().unwrap()
   }
 
+  /// Looks up a font family by name and returns the handles of all the fonts in that family.
+  ///
+  /// ref. [select_family_by_name](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.select_family_by_name)
   #[napi]
   pub fn select_family_by_name(&self, family_name: String) -> JsFamilyHandle {
     JsFamilyHandle::from(self.source.select_family_by_name(&family_name).unwrap())
   }
 
+  /// Selects a font by PostScript name, which should be a unique identifier.
+  ///
+  /// The default implementation, which is used by the DirectWrite and the filesystem backends, does a brute-force search of installed fonts to find the one that matches.
+  ///
+  /// ref. [select_by_postscript_name](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.select_by_postscript_name)
   #[napi]
   pub fn select_by_postscript_name(&self, postscript_name: String) -> JsHandle {
     JsHandle::from(
@@ -53,6 +75,9 @@ impl JsSource {
     )
   }
 
+  /// Performs font matching according to the CSS Fonts Level 3 specification and returns the handle.
+  ///
+  /// ref. [select_best_match](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.select_best_match)
   #[napi]
   pub fn select_best_match(&self, family_names: Vec<String>, properties: Properties) -> JsHandle {
     JsHandle::from(
