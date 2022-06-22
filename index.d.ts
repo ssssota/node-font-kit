@@ -11,30 +11,83 @@ export interface Properties {
 export type JsFamilyHandle = FamilyHandle
 export class FamilyHandle {
   constructor()
+  isEmpty(): boolean
+  fonts(): Array<JsHandle>
+}
+export type JsFileType = FileType
+export class FileType {
+  static single(): JsFileType
+  static collection(count: number): JsFileType
+  get isSingle(): boolean
+  get count(): number
 }
 export type JsFont = Font
 export class Font {
   static fromPath(path: string, fontIndex: number): JsFont
-  static fromBytes(fontData: Buffer, fontIndex: number): JsFont
+  static fromBytes(fontData: Uint8Array, fontIndex: number): JsFont
+  static analyzePath(path: string): FileType
+  static analyzeBytes(fontData: Uint8Array): FileType
   postscriptName(): string | null
   fullName(): string
   familyName(): string
   isMonospace(): boolean
   properties(): Properties
+  glyphForChar(character: string): number | null
+  glyphByName(name: string): number | null
+  glyphCount(): number
+  loadFontData(tableTag: number): Uint8Array | null
 }
 export type JsHandle = Handle
 export class Handle {
   static fromPath(path: string, fontIndex: number): JsHandle
-  static fromMemory(bytes: Buffer, fontIndex: number): JsHandle
+  static fromMemory(bytes: Uint8Array, fontIndex: number): JsHandle
   load(): Font
   get path(): string | null
   get fontIndex(): number
 }
 export type JsSource = Source
+/** [Source](https://docs.rs/font-kit/latest/font_kit/source/trait.Source.html) implementation */
 export class Source {
-  constructor()
+  /**
+   * Initialize system default source.
+   *
+   * - Linux: fontconfig
+   * - Windows: direct write
+   * - Mac: core text
+   *
+   * ref. [SystemSource](https://docs.rs/font-kit/latest/font_kit/source/index.html#:~:text=SystemSource)
+   */
+  static system(): JsSource
+  /**
+   * Returns paths of all fonts installed on the system.
+   *
+   * ref. [all_fonts](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.all_fonts)
+   */
   allFonts(): Array<Handle>
+  /**
+   * Returns the names of all families installed on the system.
+   *
+   * ref. [all_families](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.all_families)
+   */
   allFamilies(): Array<string>
+  /**
+   * Looks up a font family by name and returns the handles of all the fonts in that family.
+   *
+   * ref. [select_family_by_name](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.select_family_by_name)
+   */
+  selectFamilyByName(familyName: string): FamilyHandle
+  /**
+   * Selects a font by PostScript name, which should be a unique identifier.
+   *
+   * The default implementation, which is used by the DirectWrite and the filesystem backends, does a brute-force search of installed fonts to find the one that matches.
+   *
+   * ref. [select_by_postscript_name](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.select_by_postscript_name)
+   */
   selectByPostscriptName(postscriptName: string): Handle
+  /**
+   * Performs font matching according to the CSS Fonts Level 3 specification and returns the handle.
+   *
+   * ref. [select_best_match](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.select_best_match)
+   */
   selectBestMatch(familyNames: Array<string>, properties: Properties): Handle
 }

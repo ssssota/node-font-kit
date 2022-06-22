@@ -244,9 +244,10 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`);
 }
 
-const { FamilyHandle, Font, Handle, Source } = nativeBinding;
+const { FamilyHandle, FileType, Font, Handle, Source } = nativeBinding;
 
 module.exports.FamilyHandle = FamilyHandle;
+module.exports.FileType = FileType;
 module.exports.Font = Font;
 module.exports.Handle = Handle;
 module.exports.Source = Source;
