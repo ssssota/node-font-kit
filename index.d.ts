@@ -20,6 +20,11 @@ export type JsFamilyHandle = FamilyHandle
  * ref. [FamilyHandle](https://docs.rs/font-kit/latest/font_kit/family_handle/struct.FamilyHandle.html)
  */
 export class FamilyHandle {
+  /**
+   * Creates an empty set of family handles.
+   *
+   * ref. [new](https://docs.rs/font-kit/latest/font_kit/family_handle/struct.FamilyHandle.html#method.new)
+   */
   constructor()
   /**
    * Returns true if and only if this set has no fonts in it.
@@ -212,9 +217,9 @@ export class Source {
   /**
    * Initialize system default source.
    *
-   * - Linux: fontconfig
-   * - Windows: direct write
-   * - Mac: core text
+   * - Linux: [Fontconfig](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html)
+   * - Windows: [DirectWrite](https://docs.rs/font-kit/latest/x86_64-pc-windows-msvc/font_kit/sources/directwrite/struct.DirectWriteSource.html)
+   * - Mac: [Core Text](https://docs.rs/font-kit/latest/x86_64-apple-darwin/font_kit/sources/core_text/struct.CoreTextSource.html)
    *
    * ref. [SystemSource](https://docs.rs/font-kit/latest/font_kit/source/index.html#:~:text=SystemSource)
    */
