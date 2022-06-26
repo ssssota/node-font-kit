@@ -42,6 +42,7 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
+  "homepage": "https://ssssota.github.io/node-font-kit",
   "scripts": {
     "artifacts": "napi artifacts",
     "build": "napi build --platform --release --pipe \"prettier -w\"",
@@ -57,7 +58,7 @@
     "lint:rs": "cargo clippy",
     "prepublishOnly": "napi prepublish -t npm",
     "test": "vitest",
-    "typedoc": "typedoc index.d.ts",
+    "typedoc": "typedoc --sort source-order index.d.ts",
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
