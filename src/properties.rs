@@ -5,6 +5,9 @@ const NORMAL: &str = "normal";
 const ITALIC: &str = "italic";
 const OBLIQUE: &str = "oblique";
 
+/// Properties that specify which font in a family to use: e.g. style, weight, and stretchiness.
+///
+/// ref. [Properties](https://docs.rs/font-kit/latest/font_kit/properties/struct.Properties.html)
 #[napi(object)]
 pub struct Properties {
   #[napi(ts_type = "'normal' | 'italic' | 'oblique'")]

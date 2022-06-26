@@ -8,7 +8,9 @@ use font_kit::source::SystemSource;
 use napi_derive::napi;
 use std::ops::Deref;
 
-/// [Source](https://docs.rs/font-kit/latest/font_kit/source/trait.Source.html) implementation
+/// A database of installed fonts that can be queried.
+///
+/// ref. [Source](https://docs.rs/font-kit/latest/font_kit/source/trait.Source.html)
 #[napi(js_name = "Source")]
 pub struct JsSource {
   source: Box<dyn Source>,

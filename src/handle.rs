@@ -4,6 +4,13 @@ use napi::bindgen_prelude::Uint8Array;
 use napi_derive::napi;
 use std::sync::Arc;
 
+/// Encapsulates the information needed to locate and open a font.
+///
+/// This is either the path to the font or the raw in-memory font data.
+///
+/// To open the font referenced by a handle, use a loader.
+///
+/// ref. [Handle](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html)
 #[napi(js_name = "Handle")]
 pub struct JsHandle {
   handle: Handle,
@@ -11,23 +18,41 @@ pub struct JsHandle {
 
 #[napi]
 impl JsHandle {
+  /// Creates a new handle from a path.
+  ///
+  /// font_index specifies the index of the font to choose if the path points to a font collection. If the path points to a single font file, pass 0.
+  ///
+  /// ref. [from_path](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#method.from_path)
   #[napi(factory)]
   pub fn from_path(path: String, font_index: u32) -> Self {
     JsHandle {
       handle: Handle::from_path(path.into(), font_index),
     }
   }
+
+  /// Creates a new handle from raw TTF/OTF/etc. data in memory.
+  ///
+  /// font_index specifies the index of the font to choose if the memory represents a font collection. If the memory represents a single font file, pass 0.
+  ///
+  /// ref. [from_memory](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#method.from_memory)
   #[napi(factory)]
   pub fn from_memory(bytes: Uint8Array, font_index: u32) -> Self {
     JsHandle {
       handle: Handle::from_memory(Arc::new((*bytes).into()), font_index),
     }
   }
+
+  /// A convenience method to load this handle with the default loader, producing a Font.
+  ///
+  /// ref. [load](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#method.load)
   #[napi]
   pub fn load(&self) -> JsFont {
-    JsFont::from_raw(self.handle.load().unwrap())
+    JsFont::from(self.handle.load().unwrap())
   }
 
+  /// The path to the font.
+  ///
+  /// ref. [path](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#variant.Path.field.path)
   #[napi(getter)]
   pub fn path(&self) -> Option<String> {
     match &self.handle {
@@ -42,6 +67,11 @@ impl JsHandle {
     }
   }
 
+  /// The index of the font, if the path refers to a collection.
+  ///
+  /// If the path refers to a single font, this value will be 0.
+  ///
+  /// ref. [font_index](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#variant.Path.field.font_index)
   #[napi(getter)]
   pub fn font_index(&self) -> u32 {
     match &self.handle {
