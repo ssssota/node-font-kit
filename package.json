@@ -57,6 +57,7 @@
     "lint:rs": "cargo clippy",
     "prepublishOnly": "napi prepublish -t npm",
     "test": "vitest",
+    "typedoc": "typedoc index.d.ts",
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
@@ -73,6 +74,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
     "semantic-release": "^19.0.3",
+    "typedoc": "^0.22.18",
     "typescript": "^4.7.3",
     "vitest": "^0.15.1"
   },
