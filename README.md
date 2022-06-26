@@ -6,19 +6,8 @@ This library works like [font-manager](https://github.com/foliojs/font-manager/)
 
 ## Features
 
-- Get the path of installed fonts
-- Get the font info
-  - Full name (_Depends on platform._)
-  - Family name
-  - Postscript name
-  - Italic(Oblique)?
-  - Weight
-  - Stretch
-  - Monospace?
-
-> You cannot get the correct properties with variable fonts.
-
-> Check [this document](https://neon-bindings.com/docs/electron-apps) if you use this with Electron.
+- Get list of installed fonts.
+- Get the font info (name, some properties).
 
 ## Installation
 
