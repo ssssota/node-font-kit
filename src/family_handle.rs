@@ -12,6 +12,9 @@ pub struct JsFamilyHandle {
 
 #[napi]
 impl JsFamilyHandle {
+  /// Creates an empty set of family handles.
+  ///
+  /// ref. [new](https://docs.rs/font-kit/latest/font_kit/family_handle/struct.FamilyHandle.html#method.new)
   #[napi(constructor)]
   pub fn new() -> Self {
     JsFamilyHandle {

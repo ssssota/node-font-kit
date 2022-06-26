@@ -20,9 +20,9 @@ pub struct JsSource {
 impl JsSource {
   /// Initialize system default source.
   ///
-  /// - Linux: fontconfig
-  /// - Windows: direct write
-  /// - Mac: core text
+  /// - Linux: [Fontconfig](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html)
+  /// - Windows: [DirectWrite](https://docs.rs/font-kit/latest/x86_64-pc-windows-msvc/font_kit/sources/directwrite/struct.DirectWriteSource.html)
+  /// - Mac: [Core Text](https://docs.rs/font-kit/latest/x86_64-apple-darwin/font_kit/sources/core_text/struct.CoreTextSource.html)
   ///
   /// ref. [SystemSource](https://docs.rs/font-kit/latest/font_kit/source/index.html#:~:text=SystemSource)
   #[napi(factory)]
