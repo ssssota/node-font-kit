@@ -1,6 +1,6 @@
 use crate::font::JsFont;
 use font_kit::handle::Handle;
-use napi::bindgen_prelude::Uint8Array;
+use napi::bindgen_prelude::{Error, Result, Uint8Array};
 use napi_derive::napi;
 use std::sync::Arc;
 
@@ -46,24 +46,33 @@ impl JsHandle {
   ///
   /// ref. [load](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#method.load)
   #[napi]
-  pub fn load(&self) -> JsFont {
-    JsFont::from(self.handle.load().unwrap())
+  pub fn load(&self) -> Result<JsFont> {
+    let font = self
+      .handle
+      .load()
+      .map_err(|e| Error::from_reason(e.to_string()))?;
+    Ok(JsFont::from(font))
   }
 
   /// The path to the font.
   ///
   /// ref. [path](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#variant.Path.field.path)
   #[napi(getter)]
-  pub fn path(&self) -> Option<String> {
+  pub fn path(&self) -> Result<String> {
     match &self.handle {
       Handle::Path {
         path,
         font_index: _,
-      } => Some(path.to_str().unwrap().to_string()),
+      } => Ok(
+        path
+          .to_str()
+          .ok_or(Error::from_reason("Failed to convert from OS string"))?
+          .to_string(),
+      ),
       Handle::Memory {
         bytes: _,
         font_index: _,
-      } => None,
+      } => Err(Error::from_reason("Handle is in memory")),
     }
   }
 

@@ -1,6 +1,6 @@
 use crate::{file_type::JsFileType, properties::Properties};
 use font_kit::{font::Font, loader::Loader};
-use napi::bindgen_prelude::Uint8Array;
+use napi::bindgen_prelude::{Error, Result, Uint8Array};
 use napi_derive::napi;
 use std::sync::Arc;
 
@@ -20,10 +20,9 @@ impl JsFont {
   ///
   /// ref. [from_path](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.from_path)
   #[napi(factory)]
-  pub fn from_path(path: String, font_index: u32) -> Self {
-    JsFont {
-      font: Font::from_path(path, font_index).unwrap(),
-    }
+  pub fn from_path(path: String, font_index: u32) -> Result<Self> {
+    let font = Font::from_path(path, font_index).map_err(|e| Error::from_reason(e.to_string()))?;
+    Ok(JsFont { font })
   }
 
   /// Loads a font from raw font data (the contents of a .ttf/.otf/etc. file).
@@ -32,27 +31,30 @@ impl JsFont {
   ///
   /// ref. [from_bytes](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.from_bytes)
   #[napi(factory)]
-  pub fn from_bytes(font_data: Uint8Array, font_index: u32) -> Self {
+  pub fn from_bytes(font_data: Uint8Array, font_index: u32) -> Result<Self> {
     let font_data: Arc<Vec<u8>> = Arc::new((*font_data).into());
-    JsFont {
-      font: Font::from_bytes(font_data, font_index).unwrap(),
-    }
+    let font =
+      Font::from_bytes(font_data, font_index).map_err(|e| Error::from_reason(e.to_string()))?;
+    Ok(JsFont { font })
   }
 
   /// Determines whether a path points to a supported font, and, if so, what type of font it is.
   ///
   /// ref. [analyze_path](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.analyze_path)
   #[napi]
-  pub fn analyze_path(path: String) -> JsFileType {
-    JsFileType::from(Font::analyze_path(path).unwrap())
+  pub fn analyze_path(path: String) -> Result<JsFileType> {
+    let file_type = Font::analyze_path(path).map_err(|e| Error::from_reason(e.to_string()))?;
+    Ok(JsFileType::from(file_type))
   }
 
   /// Determines whether a blob of raw font data represents a supported font, and, if so, what type of font it is.
   ///
   /// ref. [analyze_bytes](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.analyze_bytes)
   #[napi]
-  pub fn analyze_bytes(font_data: Uint8Array) -> JsFileType {
-    JsFileType::from(Font::analyze_bytes(Arc::new((*font_data).into())).unwrap())
+  pub fn analyze_bytes(font_data: Uint8Array) -> Result<JsFileType> {
+    let file_type = Font::analyze_bytes(Arc::new((*font_data).into()))
+      .map_err(|e| Error::from_reason(e.to_string()))?;
+    Ok(JsFileType::from(file_type))
   }
 
   /// Returns the PostScript name of the font. This should be globally unique.
@@ -101,8 +103,12 @@ impl JsFont {
   ///
   /// ref. [glyph_for_char](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.glyph_for_char)
   #[napi]
-  pub fn glyph_for_char(&self, character: String) -> Option<u32> {
-    self.font.glyph_for_char(character.chars().next().unwrap())
+  pub fn glyph_for_char(&self, character: String) -> Result<Option<u32>> {
+    let char = character
+      .chars()
+      .next()
+      .ok_or(Error::from_reason("String is blank"))?;
+    Ok(self.font.glyph_for_char(char))
   }
 
   /// Returns the glyph ID for the specified glyph name.
