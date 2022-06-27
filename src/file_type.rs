@@ -51,12 +51,14 @@ impl JsFileType {
 }
 
 impl From<JsFileType> for FileType {
+  #[inline]
   fn from(js: JsFileType) -> Self {
     js.file_type
   }
 }
 
 impl From<FileType> for JsFileType {
+  #[inline]
   fn from(t: FileType) -> Self {
     JsFileType { file_type: t }
   }

@@ -148,12 +148,14 @@ impl JsFont {
 }
 
 impl From<JsFont> for Font {
+  #[inline]
   fn from(js: JsFont) -> Self {
     js.font
   }
 }
 
 impl From<Font> for JsFont {
+  #[inline]
   fn from(font: Font) -> Self {
     JsFont { font }
   }

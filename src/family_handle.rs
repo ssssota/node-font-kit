@@ -45,12 +45,14 @@ impl JsFamilyHandle {
 }
 
 impl From<JsFamilyHandle> for FamilyHandle {
+  #[inline]
   fn from(js: JsFamilyHandle) -> Self {
     js.family_handle
   }
 }
 
 impl From<FamilyHandle> for JsFamilyHandle {
+  #[inline]
   fn from(family_handle: FamilyHandle) -> Self {
     JsFamilyHandle { family_handle }
   }

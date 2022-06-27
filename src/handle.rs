@@ -97,12 +97,14 @@ impl JsHandle {
 }
 
 impl From<JsHandle> for Handle {
+  #[inline]
   fn from(js: JsHandle) -> Self {
     js.handle
   }
 }
 
 impl From<Handle> for JsHandle {
+  #[inline]
   fn from(handle: Handle) -> Self {
     JsHandle { handle }
   }
