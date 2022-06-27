@@ -1,3 +1,4 @@
 target
 .yarn
 /index.d.ts
+/docs

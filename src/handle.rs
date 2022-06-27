@@ -66,7 +66,7 @@ impl JsHandle {
       } => Ok(
         path
           .to_str()
-          .ok_or(Error::from_reason("Failed to convert from OS string"))?
+          .ok_or_else(|| Error::from_reason("Failed to convert from OS string"))?
           .to_string(),
       ),
       Handle::Memory {

@@ -54,7 +54,7 @@
     "format-check:prettier": "prettier . --check",
     "format-check:rs": "cargo fmt -- --check",
     "lint": "run-p -l \"lint:*\"",
-    "lint:eslint": "eslint . -c ./.eslintrc.yml",
+    "lint:eslint": "eslint . -c ./.eslintrc.yml --ignore-path .prettierignore",
     "lint:rs": "cargo clippy",
     "prepublishOnly": "napi prepublish -t npm",
     "test": "vitest",

@@ -110,7 +110,7 @@ impl JsFont {
     let char = character
       .chars()
       .next()
-      .ok_or(Error::from_reason("String is blank"))?;
+      .ok_or_else(|| Error::from_reason("String is blank"))?;
     Ok(maybe(self.font.glyph_for_char(char)))
   }
 

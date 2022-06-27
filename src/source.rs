@@ -43,7 +43,7 @@ impl JsSource {
       .all_fonts()
       .map_err(|e| Error::from_reason(e.to_string()))?
       .into_iter()
-      .map(|handle| JsHandle::from(handle))
+      .map(JsHandle::from)
       .collect();
     Ok(fonts)
   }
