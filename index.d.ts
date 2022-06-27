@@ -103,7 +103,7 @@ export class Font {
    *
    * ref. [postscript_name](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.postscript_name)
    */
-  postscriptName(): string | null
+  postscriptName(): string | undefined
   /**
    * Returns the full name of the font (also known as “display name” on macOS).
    *
@@ -135,13 +135,13 @@ export class Font {
    *
    * ref. [glyph_for_char](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.glyph_for_char)
    */
-  glyphForChar(character: string): number | null
+  glyphForChar(character: string): number | undefined
   /**
    * Returns the glyph ID for the specified glyph name.
    *
    * ref. [glyph_by_name](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.glyph_by_name)
    */
-  glyphByName(name: string): number | null
+  glyphByName(name: string): number | undefined
   /**
    * Returns the number of glyphs in the font.
    *
@@ -157,7 +157,7 @@ export class Font {
    *
    * ref. [load_font_data](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.load_font_table)
    */
-  loadFontData(tableTag: number): Uint8Array | null
+  loadFontData(tableTag: number): Uint8Array | undefined
 }
 export type JsHandle = Handle
 /**
@@ -197,7 +197,7 @@ export class Handle {
    *
    * ref. [path](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#variant.Path.field.path)
    */
-  get path(): string | null
+  get path(): string
   /**
    * The index of the font, if the path refers to a collection.
    *

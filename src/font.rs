@@ -1,6 +1,9 @@
-use crate::{file_type::JsFileType, properties::Properties};
+use crate::file_type::JsFileType;
+use crate::maybe::maybe;
+use crate::properties::Properties;
 use font_kit::{font::Font, loader::Loader};
-use napi::bindgen_prelude::{Error, Result, Uint8Array};
+use napi::bindgen_prelude::Uint8Array;
+use napi::{Either, Error, Result};
 use napi_derive::napi;
 use std::sync::Arc;
 
@@ -61,8 +64,8 @@ impl JsFont {
   ///
   /// ref. [postscript_name](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.postscript_name)
   #[napi]
-  pub fn postscript_name(&self) -> Option<String> {
-    self.font.postscript_name()
+  pub fn postscript_name(&self) -> Either<String, ()> {
+    maybe(self.font.postscript_name())
   }
 
   /// Returns the full name of the font (also known as “display name” on macOS).
@@ -103,20 +106,20 @@ impl JsFont {
   ///
   /// ref. [glyph_for_char](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.glyph_for_char)
   #[napi]
-  pub fn glyph_for_char(&self, character: String) -> Result<Option<u32>> {
+  pub fn glyph_for_char(&self, character: String) -> Result<Either<u32, ()>> {
     let char = character
       .chars()
       .next()
       .ok_or(Error::from_reason("String is blank"))?;
-    Ok(self.font.glyph_for_char(char))
+    Ok(maybe(self.font.glyph_for_char(char)))
   }
 
   /// Returns the glyph ID for the specified glyph name.
   ///
   /// ref. [glyph_by_name](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.glyph_by_name)
   #[napi]
-  pub fn glyph_by_name(&self, name: String) -> Option<u32> {
-    self.font.glyph_by_name(&name)
+  pub fn glyph_by_name(&self, name: String) -> Either<u32, ()> {
+    maybe(self.font.glyph_by_name(&name))
   }
 
   /// Returns the number of glyphs in the font.
@@ -135,11 +138,12 @@ impl JsFont {
   ///
   /// ref. [load_font_data](https://docs.rs/font-kit/latest/font_kit/loaders/freetype/struct.Font.html#method.load_font_table)
   #[napi]
-  pub fn load_font_data(&self, table_tag: u32) -> Option<Uint8Array> {
-    self
+  pub fn load_font_data(&self, table_tag: u32) -> Either<Uint8Array, ()> {
+    let data = self
       .font
       .load_font_table(table_tag)
-      .map(|t| Uint8Array::new((*t).into()))
+      .map(|t| Uint8Array::new((*t).into()));
+    maybe(data)
   }
 }
 
