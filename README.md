@@ -17,7 +17,7 @@ const listFontFamilyName = () => {
         return font.familyName();
       });
       const deduped = [...new Set(fontFamilyNameList)];
-      return deduped;
+      resolve(deduped);
     } catch (e) {
       reject(e);
     }
