@@ -8,5 +8,6 @@ pub mod file_type;
 pub mod font;
 pub mod handle;
 mod maybe;
+mod promisify;
 pub mod properties;
 pub mod source;
