@@ -13,6 +13,16 @@ export interface Properties {
   weight: number
   stretch: number
 }
+/**
+ * Initialize system default source.
+ *
+ * - Linux: [Fontconfig](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html)
+ * - Windows: [DirectWrite](https://docs.rs/font-kit/latest/x86_64-pc-windows-msvc/font_kit/sources/directwrite/struct.DirectWriteSource.html)
+ * - Mac: [Core Text](https://docs.rs/font-kit/latest/x86_64-apple-darwin/font_kit/sources/core_text/struct.CoreTextSource.html)
+ *
+ * ref. [SystemSource](https://docs.rs/font-kit/latest/font_kit/source/index.html#:~:text=SystemSource)
+ */
+export function createSystemSource(): Source
 export type JsFamilyHandle = FamilyHandle
 /**
  * Encapsulates the information needed to locate and open the fonts in a family.
@@ -214,15 +224,6 @@ export type JsSource = Source
  * ref. [Source](https://docs.rs/font-kit/latest/font_kit/source/trait.Source.html)
  */
 export class Source {
-  /**
-   * Initialize system default source.
-   *
-   * - Linux: [Fontconfig](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html)
-   * - Windows: [DirectWrite](https://docs.rs/font-kit/latest/x86_64-pc-windows-msvc/font_kit/sources/directwrite/struct.DirectWriteSource.html)
-   * - Mac: [Core Text](https://docs.rs/font-kit/latest/x86_64-apple-darwin/font_kit/sources/core_text/struct.CoreTextSource.html)
-   *
-   * ref. [SystemSource](https://docs.rs/font-kit/latest/font_kit/source/index.html#:~:text=SystemSource)
-   */
   static system(): JsSource
   /**
    * Returns paths of all fonts installed on the system.
