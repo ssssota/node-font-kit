@@ -4,6 +4,27 @@ Node.js wrapper for [font-kit (Rust crate)](https://crates.io/crates/font-kit).
 
 This library works like [font-manager](https://github.com/foliojs/font-manager/).
 
+## Examples
+
+```ts
+const listFontFamilyName = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      const source = createSystemSource();
+      const installedFontHandles = source.allFonts();
+      const fontFamilyNameList = installedFontHandles.map((handle) => {
+        const font = handle.load();
+        return font.familyName();
+      });
+      const deduped = [...new Set(fontFamilyNameList)];
+      return deduped;
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+```
+
 ## Features
 
 - Get list of installed fonts.
