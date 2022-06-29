@@ -19,20 +19,6 @@ pub struct JsSource {
 
 #[napi]
 impl JsSource {
-  /// Initialize system default source.
-  ///
-  /// - Linux: [Fontconfig](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html)
-  /// - Windows: [DirectWrite](https://docs.rs/font-kit/latest/x86_64-pc-windows-msvc/font_kit/sources/directwrite/struct.DirectWriteSource.html)
-  /// - Mac: [Core Text](https://docs.rs/font-kit/latest/x86_64-apple-darwin/font_kit/sources/core_text/struct.CoreTextSource.html)
-  ///
-  /// ref. [SystemSource](https://docs.rs/font-kit/latest/font_kit/source/index.html#:~:text=SystemSource)
-  #[napi(factory)]
-  pub fn system() -> Self {
-    JsSource {
-      source: Box::new(SystemSource::new()),
-    }
-  }
-
   /// Returns paths of all fonts installed on the system.
   ///
   /// ref. [all_fonts](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.all_fonts)
@@ -107,5 +93,19 @@ impl JsSource {
       )
       .map_err(|e| Error::from_reason(e.to_string()))?;
     Ok(JsHandle::from(handle))
+  }
+}
+
+/// Initialize system default source.
+///
+/// - Linux: [Fontconfig](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html)
+/// - Windows: [DirectWrite](https://docs.rs/font-kit/latest/x86_64-pc-windows-msvc/font_kit/sources/directwrite/struct.DirectWriteSource.html)
+/// - Mac: [Core Text](https://docs.rs/font-kit/latest/x86_64-apple-darwin/font_kit/sources/core_text/struct.CoreTextSource.html)
+///
+/// ref. [SystemSource](https://docs.rs/font-kit/latest/font_kit/source/index.html#:~:text=SystemSource)
+#[napi]
+pub fn create_system_source() -> JsSource {
+  JsSource {
+    source: Box::new(SystemSource::new()),
   }
 }
