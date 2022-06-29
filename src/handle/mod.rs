@@ -15,6 +15,7 @@ use load::Load;
 ///
 /// ref. [Handle](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html)
 #[napi(js_name = "Handle")]
+#[derive(Clone)]
 pub struct JsHandle {
   handle: Handle,
 }

@@ -230,7 +230,7 @@ export class Source {
    *
    * ref. [all_fonts](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.all_fonts)
    */
-  allFonts(): Array<Handle>
+  allFonts(): Promise<Handle[]>
   /**
    * Returns the names of all families installed on the system.
    *

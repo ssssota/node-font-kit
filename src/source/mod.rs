@@ -1,10 +1,12 @@
 use crate::family_handle::JsFamilyHandle;
 use crate::family_name::str2family_name;
 use crate::handle::JsHandle;
+use crate::promisify::{promisify, Promise};
 use crate::properties::Properties;
 use font_kit::family_name::FamilyName;
 use font_kit::source::Source;
 use font_kit::source::SystemSource;
+use napi::bindgen_prelude::AsyncTask;
 use napi::{Error, Result};
 use napi_derive::napi;
 use std::ops::Deref;
@@ -29,16 +31,14 @@ impl JsSource {
   /// Returns paths of all fonts installed on the system.
   ///
   /// ref. [all_fonts](https://docs.rs/font-kit/latest/font_kit/sources/fontconfig/struct.FontconfigSource.html#method.all_fonts)
-  #[napi]
-  pub fn all_fonts(&self) -> Result<Vec<JsHandle>> {
-    let fonts = self
+  #[napi(ts_return_type = "Promise<Handle[]>")]
+  pub fn all_fonts(&self) -> AsyncTask<Promise<Vec<JsHandle>>> {
+    let result = self
       .source
       .all_fonts()
-      .map_err(|e| Error::from_reason(e.to_string()))?
-      .into_iter()
-      .map(JsHandle::from)
-      .collect();
-    Ok(fonts)
+      .map_err(|e| e.to_string())
+      .map(|handles| handles.into_iter().map(JsHandle::from).collect());
+    promisify(result)
   }
 
   /// Returns the names of all families installed on the system.
