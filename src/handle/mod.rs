@@ -1,8 +1,11 @@
-use crate::font::JsFont;
 use font_kit::handle::Handle;
-use napi::bindgen_prelude::{Error, Result, Uint8Array};
+use napi::bindgen_prelude::{AsyncTask, Error, Result, Uint8Array};
 use napi_derive::napi;
 use std::sync::Arc;
+
+mod load;
+
+use load::Load;
 
 /// Encapsulates the information needed to locate and open a font.
 ///
@@ -45,13 +48,9 @@ impl JsHandle {
   /// A convenience method to load this handle with the default loader, producing a Font.
   ///
   /// ref. [load](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#method.load)
-  #[napi]
-  pub fn load(&self) -> Result<JsFont> {
-    let font = self
-      .handle
-      .load()
-      .map_err(|e| Error::from_reason(e.to_string()))?;
-    Ok(JsFont::from(font))
+  #[napi(ts_return_type = "Promise<Font>")]
+  pub fn load(&self) -> AsyncTask<Load> {
+    AsyncTask::new(Load::new(&self.handle))
   }
 
   /// The path to the font.

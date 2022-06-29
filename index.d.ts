@@ -201,7 +201,7 @@ export class Handle {
    *
    * ref. [load](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#method.load)
    */
-  load(): Font
+  load(): Promise<Font>
   /**
    * The path to the font.
    *
