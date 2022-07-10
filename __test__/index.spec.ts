@@ -1,6 +1,4 @@
 import { readFileSync } from 'fs';
-import { join } from 'path';
-import { fileURLToPath } from 'url';
 
 import { describe, expect, it } from 'vitest';
 
@@ -30,8 +28,7 @@ describe('Font', () => {
   });
 
   it('Font(from Bytes)', () => {
-    const path = join(fileURLToPath(import.meta.url), '../ROBOTO-BLACK.TTF');
-    const data = readFileSync(path);
+    const data = readFileSync(robotoBlack.path);
     const fileType = Font.analyzeBytes(data);
     const font = Font.fromBytes(data, 0);
     test(robotoBlack, fileType, font);
