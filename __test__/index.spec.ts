@@ -1,21 +1,34 @@
 import { readFileSync } from 'fs';
-import { platform } from 'process';
+import { join } from 'path';
 
-import { expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { Font } from '../index';
+import { FileType, Font } from '../index';
 
-test('sync function from native code', () => {
-  const data = readFileSync('__test__/ROBOTO-BLACK.TTF');
-  const font = Font.fromBytes(data, 0);
-  expect(font.familyName()).toBe('Roboto');
-  expect(font.fullName()).toBe(
-    platform === 'win32' || platform === 'darwin' ? 'Roboto Black' : 'Roboto',
-  );
-  expect(font.postscriptName()).toBe('Roboto-Black');
-  expect(font.isMonospace()).toBeFalsy();
-  const properties = font.properties();
-  expect(properties.style).toBe('normal');
-  expect(properties.weight).toBe(900);
-  expect(properties.stretch).toBe(1);
+import { ActualFontData, robotoBlack } from './data';
+
+describe('Font', () => {
+  const test = (actual: ActualFontData, fileType?: FileType, font?: Font) => {
+    fileType ??= Font.analyzePath(actual.path);
+    expect(fileType.isSingle()).toBe(actual.fileType.single);
+    expect(fileType.count()).toBe(actual.fileType.count);
+    font ??= Font.fromPath(actual.path, 0);
+    expect(font.familyName()).toBe(actual.familyName);
+    expect(font.fullName()).toBe(actual.fullName);
+    expect(font.postscriptName()).toBe(actual.postscriptName);
+    expect(font.isMonospace()).toBe(actual.monospace);
+    expect(font.properties()).toEqual(actual.properties);
+  };
+
+  it('Font(from Path)', () => {
+    test(robotoBlack);
+  });
+
+  it('Font(from Bytes)', () => {
+    const path = join(__dirname, 'ROBOTO-BLACK.TTF');
+    const data = readFileSync(path);
+    const fileType = Font.analyzeBytes(data);
+    const font = Font.fromBytes(data, 0);
+    test(robotoBlack, fileType, font);
+  });
 });
