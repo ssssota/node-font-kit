@@ -57,7 +57,7 @@ impl JsHandle {
   /// The path to the font.
   ///
   /// ref. [path](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#variant.Path.field.path)
-  #[napi(getter)]
+  #[napi]
   pub fn path(&self) -> Result<String> {
     match &self.handle {
       Handle::Path {
@@ -81,7 +81,7 @@ impl JsHandle {
   /// If the path refers to a single font, this value will be 0.
   ///
   /// ref. [font_index](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#variant.Path.field.font_index)
-  #[napi(getter)]
+  #[napi]
   pub fn font_index(&self) -> u32 {
     match &self.handle {
       Handle::Path {

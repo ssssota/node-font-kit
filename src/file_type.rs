@@ -32,7 +32,7 @@ impl JsFileType {
   }
 
   /// Returns true if file type is single (not collection).
-  #[napi(getter)]
+  #[napi]
   pub fn is_single(&self) -> bool {
     match self.file_type {
       FileType::Single => true,
@@ -41,7 +41,7 @@ impl JsFileType {
   }
 
   /// Returns number of font in the file.
-  #[napi(getter)]
+  #[napi]
   pub fn count(&self) -> u32 {
     match self.file_type {
       FileType::Single => 1,

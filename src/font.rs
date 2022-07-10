@@ -1,7 +1,7 @@
 use crate::file_type::JsFileType;
 use crate::maybe::maybe;
 use crate::properties::Properties;
-use font_kit::{font::Font, loader::Loader};
+use font_kit::font::Font;
 use napi::bindgen_prelude::Uint8Array;
 use napi::{Either, Error, Result};
 use napi_derive::napi;
