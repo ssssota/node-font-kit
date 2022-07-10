@@ -5,7 +5,7 @@ import type { Properties } from '..';
 
 const runsOnWinOrMac = platform === 'win32' || platform === 'darwin';
 
-export type ActualFontData = {
+export type ExpectedFontData = {
   path: string;
   fileType: { single: boolean; count: number };
   familyName: string;
@@ -15,7 +15,7 @@ export type ActualFontData = {
   properties: Properties;
 };
 
-export const robotoBlack: ActualFontData = {
+export const robotoBlack: ExpectedFontData = {
   path: join(__dirname, 'ROBOTO-BLACK.TTF'),
   fileType: {
     single: true,
