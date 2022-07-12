@@ -1,6 +1,7 @@
 use crate::file_type::JsFileType;
 use crate::maybe::maybe;
 use crate::properties::Properties;
+#[allow(unused_imports)] // Build error occures at Windows
 use font_kit::{font::Font, loader::Loader};
 use napi::bindgen_prelude::Uint8Array;
 use napi::{Either, Error, Result};

@@ -69,9 +69,9 @@ export class FileType {
    */
   static collection(count: number): JsFileType
   /** Returns true if file type is single (not collection). */
-  get isSingle(): boolean
+  isSingle(): boolean
   /** Returns number of font in the file. */
-  get count(): number
+  count(): number
 }
 export type JsFont = Font
 /**
@@ -207,7 +207,7 @@ export class Handle {
    *
    * ref. [path](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#variant.Path.field.path)
    */
-  get path(): string
+  path(): string
   /**
    * The index of the font, if the path refers to a collection.
    *
@@ -215,7 +215,7 @@ export class Handle {
    *
    * ref. [font_index](https://docs.rs/font-kit/latest/font_kit/handle/enum.Handle.html#variant.Path.field.font_index)
    */
-  get fontIndex(): number
+  fontIndex(): number
 }
 export type JsSource = Source
 /**

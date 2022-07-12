@@ -3,7 +3,7 @@
     "target": "ES2018",
     "strict": true,
     "moduleResolution": "node",
-    "module": "CommonJS",
+    "module": "es2020",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
