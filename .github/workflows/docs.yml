@@ -1,0 +1,36 @@
+name: GitHub Pages
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+          check-latest: true
+
+      - name: Cache NPM dependencies
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: npm-cache-lint-node@16
+
+      - name: 'Install dependencies'
+        run: yarn install --frozen-lockfile --registry https://registry.npmjs.org --network-timeout 300000
+
+      - run: yarn build
+      - run: yarn typedoc
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs

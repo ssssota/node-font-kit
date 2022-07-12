@@ -1,18 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "declaration": true,
-    "sourceMap": true,
-    "outDir": "./dist",
+    "target": "ES2018",
     "strict": true,
+    "moduleResolution": "node",
+    "module": "es2020",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "allowSyntheticDefaultImports": true
   },
-  "exclude": [
-    "node_modules",
-    "./dist/**",
-    "./tests/**",
-  ]
+  "include": ["."],
+  "exclude": ["node_modules"]
 }
