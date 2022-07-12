@@ -248,7 +248,7 @@ jobs:
         settings:
           - host: windows-latest
             target: x86_64-pc-windows-msvc
-          - host: mac-latest
+          - host: macos-latest
             target: x86_64-apple-darwin
         node:
           - '14'
